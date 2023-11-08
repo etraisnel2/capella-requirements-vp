@@ -5,7 +5,7 @@ pipeline {
   
 	tools {
 		maven 'apache-maven-latest'
-		jdk 'openjdk-jdk14-latest'
+		jdk 'openjdk-jdk17-latest'
 	}
   
 	environment {
@@ -15,22 +15,7 @@ pipeline {
   	}
   
   	stages {
-  	
-		stage('Generate Target Platform') {
-	    	steps {        
-	        	script { 
-		        	if(github.isPullRequest()){
-		        	    github.buildStartedComment()
-		        	}
-		
-		        	currentBuild.description = BUILD_KEY
-		        	
-		        	sh 'env'
-		        	sh 'mvn clean verify -f releng/org.polarsys.capella.vp.requirements.target/pom.xml'
-	       		}         
-	     	}
-	    }
-	    
+  		    
     	stage('Build and Package') {
       		steps {
       			script {
